@@ -1,0 +1,5 @@
+Name: DepositarApi
+## You need to configure Depositar-Api-Key, which can be
+## obtained [here](https://data.depositar.io/user/{ID}/api-tokens).
+Advanced Request Configuration: Depositar-Api-Key 
+list_field: result.results
