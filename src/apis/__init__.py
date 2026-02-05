@@ -1,5 +1,4 @@
-from src.apis.base import ApiBase
-from src.apis.ror import ROR
-from src.apis.depositar import Depositar
+from .depositar import Depositar
+from .get import *
 
-__all__ = ["ApiBase", "ROR", "Depositar"]
+__all__ = ["Depositar"]

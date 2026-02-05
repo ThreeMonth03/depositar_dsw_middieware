@@ -1,7 +1,7 @@
-# Depositar API Service
+# Depositar Dsw Middleware
 
 ## Quick Start
-Clone this repository, and start the service by docker compse.
+1. Clone this repository, and start the service by docker compse.
 
 ```yaml
 services:
@@ -15,4 +15,6 @@ services:
             - host.docker.internal:host-gateway
 ```
 
-Configure integration question in knowledge model editor of [DSW](https://github.com/ds-wizard). See [example](./template/depositar/).
+2. Based on the usages of apis, read the following article and configure the corresponding settings. 
+    - Configure integration question in knowledge model of [DSW](https://github.com/ds-wizard).
+    See [template/dsw_integration_question/README.md](./template/dsw_integration_question/README.md).
