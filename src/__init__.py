@@ -1,3 +1,4 @@
-from src.router import app
+from .apis import *
+from .router import app
 
 __all__ = ["app"]

@@ -2,8 +2,8 @@ import abc
 from fastapi import Request
 
 
-class ApiBase(abc.ABC):
+class Base_Get_Project_List(abc.ABC):
     @classmethod
     @abc.abstractmethod
-    async def request(cls, query: str, headers: Request):
+    async def get_project_list(cls, query: str, headers: Request):
         return NotImplemented
