@@ -18,3 +18,5 @@ services:
 2. Based on the usages of apis, read the following article and configure the corresponding settings. 
     - Configure integration question in knowledge model of [DSW](https://github.com/ds-wizard).
     See [template/dsw_integration_question/README.md](./template/dsw_integration_question/README.md).
+    - Submit questionnaire from dsw to depositar. See 
+    [template/dsw_questionnaire_submission/README.md](./template/dsw_questionnaire_submission/README.md).
