@@ -5,14 +5,15 @@
 
 ```yaml
 services:
-    depositar_api:
-        build: ./depositar_api_service/
-        image: depositar/depositar_api_service
-        restart: unless-stopped
-        ports:
-            - 5002:5002
-        extra_hosts:
-            - host.docker.internal:host-gateway
+  depositar_dsw_middieware:
+    build: ./depositar_dsw_middieware
+    image: depositar/depositar_dsw_middieware
+    env_file: ./example.env #Need to configure DSW_ROOT_KEY to legally using DSW api
+    restart: unless-stopped
+    ports:
+      - 5002:5002
+    extra_hosts:
+      - host.docker.internal:host-gateway
 ```
 
 2. Based on the usages of apis, read the following article and configure the corresponding settings. 
