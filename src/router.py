@@ -70,17 +70,87 @@ async def generate_dsw_documents_from_project(
             f"{str(e)}.\n",
         )
 
+@app.post("/submit_dsw_documents_from_project={qry}")
+async def submit_dsw_documents_from_project(
+    qry: str,
+    request: Request,
+) -> dict:
+    all_headers = dict(request.headers)
 
-@app.post("/submit_questionnaire")
-async def submit_questionnaire(
+    try:
+        '''
+        document_template_metadatas = [
+            ["dsw:questionnaire-report:2.16.1", "HTML Document"],
+            ["dsw:science-europe:1.29.1", "HTML Document"],
+            ["dsw:rda-madmp:1.27.1", "RDF/XML"],
+        ]
+        for metadata in document_template_metadatas:
+            format_uuid: str = await DSW.get_format_uuid(metadata, request.headers)
+            metadata.append(format_uuid)
+        '''
+        documents: dict = await DSW.get_document_info(request.headers, qry)
+
+        for document in documents:
+            if document[2] == "RDF/XML":
+                await DSW.submit_madmp(document[3], {"serviceId": "depositar_submit_madmp"})
+        for document in documents:
+            if document[2] == "HTML Document":
+                await DSW.submit_html(document[3], {"serviceId": "depositar_submit_html"})
+
+        headers: dict = {}
+        return fastapi.responses.JSONResponse(
+            headers=headers,
+            status_code=fastapi.status.HTTP_201_CREATED,
+            content={
+                "message": "Generate documents successfully!",
+            },
+        )
+    except Exception as e:
+        print(traceback.format_exc())
+        return fastapi.responses.PlainTextResponse(
+            status_code=fastapi.status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content=f"Could not send the notification ({type(e).__name__}).\n\n"
+            f"{str(e)}.\n",
+        )
+
+
+@app.post("/submit_madmp")
+async def submit_madmp(
     request: Request,
 ) -> dict:
     all_headers: dict = dict(request.headers)
     body_bytes: bytes = await request.body()
     body_str: str = body_bytes.decode("utf-8")
     headers: dict = {}
+
     try:
-        await Depositar.create_resources(all_headers, body_str)
+        await Depositar.submit_madmp(all_headers, body_str)
+        return fastapi.responses.JSONResponse(
+            headers=headers,
+            status_code=fastapi.status.HTTP_201_CREATED,
+            content={
+                "message": "Notification sent successfully!",
+            },
+        )
+    except Exception as e:
+        print(traceback.format_exc())
+        return fastapi.responses.PlainTextResponse(
+            status_code=fastapi.status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content=f"Could not send the notification ({type(e).__name__}).\n\n"
+            f"{str(e)}.\n",
+        )
+
+@app.post("/submit_html")
+async def submit_html(
+    request: Request,
+) -> dict:
+    all_headers: dict = dict(request.headers)
+    body_bytes: bytes = await request.body()
+    body_str: str = body_bytes.decode("utf-8")
+    headers: dict = {}
+
+    try:
+        await Depositar.submit_html(all_headers, body_str)
         return fastapi.responses.JSONResponse(
             headers=headers,
             status_code=fastapi.status.HTTP_201_CREATED,
