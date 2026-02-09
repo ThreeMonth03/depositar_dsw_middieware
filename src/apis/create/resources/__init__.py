@@ -1,3 +1,3 @@
-from .depositar import Depositar_Create_Resources
+from .depositar import DepositarCreateResources
 
-__all__ = ["Depositar_Create_Resources"]
+__all__ = ["DepositarCreateResources"]

@@ -1,6 +1,14 @@
-from .get import Depositar_Get_Project_List
-from .create import Depositar_Create_Resources
+from .create import DepositarCreateResources, DepositarCreateDatasets
+from .get import Depositar_Get_Project_List, DepositarGetDatasetId
+from .submit import DepositarSubmitHtml, DepositarSubmitMaDMP
 
 
-class Depositar(Depositar_Get_Project_List, Depositar_Create_Resources):
+class Depositar(
+    DepositarCreateResources,
+    DepositarCreateDatasets,
+    DepositarGetDatasetId,
+    Depositar_Get_Project_List,
+    DepositarSubmitHtml,
+    DepositarSubmitMaDMP,
+):
     pass
